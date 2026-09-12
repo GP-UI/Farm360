@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
-import Login from './Login'
+import Login from '../../../../src/features/auth/components/Login'
 
 describe('Login', () => {
   it('shows field errors before sending an invalid form', async () => {

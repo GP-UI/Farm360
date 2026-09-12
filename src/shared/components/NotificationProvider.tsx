@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { NotificationContext } from './notificationContext'
-import type { Notification } from './notificationContext'
+import { NotificationContext } from '../hooks/notificationContext'
+import type { Notification } from '../hooks/notificationContext'
 
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const [notification, setNotification] = useState<Notification | null>(null)

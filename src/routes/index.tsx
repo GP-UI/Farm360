@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import RouteLoading from '../components/RouteLoading'
+import RouteLoading from '../shared/components/RouteLoading'
 import { createDashboardRoute } from '../features/dashboard/routes'
 import type { CreateProfileInput, UserProfile } from '../features/profile/types'
 import { ROUTE_PATHS } from './paths'

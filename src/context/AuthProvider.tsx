@@ -1,9 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
-import { useState, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { clearProfile, setProfile } from '../store/authSlice'
 import { AuthContext } from './AuthContext'
 import type { CreateProfileInput, UserProfile } from '../features/profile/types'
-import { fileToBase64 } from '../services/fileService'
-import { clearStoredProfile, getStoredProfile, saveProfile } from '../services/authStorage'
+import { fileToBase64 } from '../shared/services/fileService'
+import { clearStoredProfile, saveProfile } from '../shared/services/authStorage'
 import { login as loginRequest, profileFromLoginResponse } from '../features/auth/services/authService'
 import { createProfile as createProfileRequest } from '../features/profile/services/profileService'
 
@@ -12,14 +14,15 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [profile, setProfile] = useState<UserProfile | null>(() => getStoredProfile())
+  const profile = useAppSelector((state) => state.auth.profile)
+  const dispatch = useAppDispatch()
 
   const loginMutation = useMutation({
     mutationFn: async ({ userId, password, signal }: { userId: string; password: string; signal?: AbortSignal }) => {
       const loginResult = await loginRequest(userId, password, signal)
       const loggedInProfile = profileFromLoginResponse(loginResult)
 
-      setProfile(loggedInProfile)
+      dispatch(setProfile(loggedInProfile))
       saveProfile(loggedInProfile)
       return loginResult.message || 'Login successful.'
     },
@@ -43,7 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email: profileToCreate.email,
         photo: photoBase64,
       }
-      setProfile(savedProfile)
+      dispatch(setProfile(savedProfile))
       saveProfile(savedProfile)
     },
   })
@@ -58,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   function logout() {
     clearStoredProfile()
-    setProfile(null)
+    dispatch(clearProfile())
   }
 
   return (

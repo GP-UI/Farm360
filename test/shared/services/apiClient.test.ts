@@ -1,6 +1,6 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios'
 import { describe, expect, it } from 'vitest'
-import { getApiErrorMessage, toApiError } from './apiClient'
+import { getApiErrorMessage, toApiError } from '../../../src/shared/services/apiClient'
 
 describe('getApiErrorMessage', () => {
   it('prefers a server-provided message', () => {

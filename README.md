@@ -4,18 +4,21 @@
 
 The application is organized around small responsibilities:
 
-- `src/components`: reusable presentational components and page components.
+- `src/components/ui`: reusable UI controls such as form fields.
+- `src/shared`: cross-app components, hooks, services, and utilities.
+- `src/assets/images`: application images and desktop icon artwork.
 - `src/context`: application state providers such as authentication.
+- `src/store`: Redux Toolkit slices and typed store hooks for global client state.
 - `src/config`: environment-driven configuration and API endpoints.
 - `src/routes`: route definitions and route paths. Route pages are lazy-loaded.
-- `src/services`: API, browser storage, and file processing services.
-- `src/types`: shared domain and API types.
+- `test`: Vitest setup and tests mirroring the `src` feature structure.
+- `scripts`: local automation such as the Farm 360 launcher.
 
 ## Application patterns
 
 - Use React Hook Form with a Zod schema for form state and validation.
 - Use TanStack Query for API queries and mutations. The shared query client uses a five-minute cache, avoids refetching on window focus, and does not retry mutations automatically.
-- Keep authentication session state in `AuthContext`; keep remote request state in TanStack Query.
+- Keep authentication profile state in the Redux Toolkit `auth` slice, expose its actions through `AuthContext`, and keep remote request state in TanStack Query.
 - Preserve request cancellation with `AbortSignal` when a form unmounts or a newer submission replaces an older one.
 - Convert server failures through `getApiErrorMessage` and preserve HTTP status in `ApiError` for future status-specific UI.
 

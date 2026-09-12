@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import FormField from '../../../components/FormField'
+import FormField from '../../../components/ui/FormField'
 import { loginSchema, type LoginFormValues } from '../schemas'
 
 type LoginProps = {

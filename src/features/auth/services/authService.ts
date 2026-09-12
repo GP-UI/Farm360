@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_ENDPOINTS } from '../../../config/api'
-import { apiClient, toApiError } from '../../../services/apiClient'
+import { apiClient, toApiError } from '../../../shared/services/apiClient'
 import type { LoginResponse } from '../types'
 import type { UserProfile } from '../../profile/types'
 

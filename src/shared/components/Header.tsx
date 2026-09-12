@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { ResolvedTheme, ThemeMode } from '../context/themeContext'
+import type { ResolvedTheme, ThemeMode } from '../../context/themeContext'
 
 type HeaderProps = {
   hasProfile: boolean

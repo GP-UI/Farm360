@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_ENDPOINTS } from '../../../config/api'
-import { apiClient, toApiError } from '../../../services/apiClient'
+import { apiClient, toApiError } from '../../../shared/services/apiClient'
 import type { CreateProfileInput, CreateProfileResponse } from '../types'
 
 export async function createProfile(profile: CreateProfileInput, photoBase64: string | null, signal?: AbortSignal) {
