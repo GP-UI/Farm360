@@ -4,12 +4,14 @@ import Header from '../components/Header'
 import { useNotification } from '../components/notificationContext'
 import type { CreateProfileInput } from '../features/profile/types'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/themeContext'
 import AppRoutes from '../routes'
 
 function AppShell() {
   const { profile, isAuthenticated, login, createProfile, logout } = useAuth()
   const navigate = useNavigate()
   const { notify } = useNotification()
+  const { mode, resolvedTheme, setMode } = useTheme()
 
   const handleProfileCreation = async (createdProfile: CreateProfileInput, signal?: AbortSignal) => {
     await createProfile(createdProfile, signal)
@@ -36,6 +38,9 @@ function AppShell() {
         profilePhoto={profile?.photo ?? null}
         onProfileClick={() => navigate('/profile/create')}
         onLogout={handleLogout}
+        themeMode={mode}
+        resolvedTheme={resolvedTheme}
+        onThemeChange={setMode}
       />
 
       <main className="flex min-h-[calc(100vh-9rem)] flex-1 items-start justify-center px-5 pb-5 pt-30 sm:px-8 sm:pb-16 sm:pt-30">

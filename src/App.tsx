@@ -2,6 +2,7 @@ import { BrowserRouter } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 import { NotificationProvider } from './components/NotificationProvider'
 import { AuthProvider } from './context/AuthProvider'
+import { ThemeProvider } from './context/ThemeProvider'
 import AppShell from './app/AppShell'
 
 function App() {
@@ -9,9 +10,11 @@ function App() {
     <BrowserRouter>
       <NotificationProvider>
         <ErrorBoundary>
-          <AuthProvider>
-            <AppShell />
-          </AuthProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <AppShell />
+            </AuthProvider>
+          </ThemeProvider>
         </ErrorBoundary>
       </NotificationProvider>
     </BrowserRouter>

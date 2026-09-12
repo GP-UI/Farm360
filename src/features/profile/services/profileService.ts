@@ -1,5 +1,6 @@
+import axios from 'axios'
 import { API_ENDPOINTS } from '../../../config/api'
-import { apiClient, getApiErrorMessage } from '../../../services/apiClient'
+import { apiClient, toApiError } from '../../../services/apiClient'
 import type { CreateProfileInput, CreateProfileResponse } from '../types'
 
 export async function createProfile(profile: CreateProfileInput, photoBase64: string | null, signal?: AbortSignal) {
@@ -22,6 +23,7 @@ export async function createProfile(profile: CreateProfileInput, photoBase64: st
 
     return response.data
   } catch (error) {
-    throw new Error(getApiErrorMessage(error, 'Could not create your profile.'), { cause: error })
+    if (axios.isCancel(error)) throw error
+    throw toApiError(error, 'Could not create your profile.')
   }
 }

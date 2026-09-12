@@ -8,6 +8,16 @@ export const apiClient = axios.create({
   },
 })
 
+export class ApiError extends Error {
+  status: number | undefined
+
+  constructor(message: string, status?: number, options?: ErrorOptions) {
+    super(message, options)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
 export function getApiErrorMessage(error: unknown, fallbackMessage: string) {
   if (axios.isAxiosError(error)) {
     const serverMessage = error.response?.data?.message
@@ -21,4 +31,12 @@ export function getApiErrorMessage(error: unknown, fallbackMessage: string) {
   }
 
   return fallbackMessage
+}
+
+export function toApiError(error: unknown, fallbackMessage: string) {
+  return new ApiError(getApiErrorMessage(error, fallbackMessage), getApiErrorStatus(error), { cause: error })
+}
+
+function getApiErrorStatus(error: unknown) {
+  return axios.isAxiosError(error) ? error.response?.status : undefined
 }

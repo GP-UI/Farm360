@@ -1,5 +1,6 @@
+import axios from 'axios'
 import { API_ENDPOINTS } from '../../../config/api'
-import { apiClient, getApiErrorMessage } from '../../../services/apiClient'
+import { apiClient, toApiError } from '../../../services/apiClient'
 import type { LoginResponse } from '../types'
 import type { UserProfile } from '../../profile/types'
 
@@ -13,7 +14,8 @@ export async function login(userId: string, password: string, signal?: AbortSign
 
     return response.data
   } catch (error) {
-    throw new Error(getApiErrorMessage(error, 'Invalid User ID or Password.'), { cause: error })
+    if (axios.isCancel(error)) throw error
+    throw toApiError(error, 'Invalid User ID or Password.')
   }
 }
 

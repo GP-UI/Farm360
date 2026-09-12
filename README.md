@@ -1,4 +1,4 @@
-# Shreeja Farm
+# Farm 360
 
 ## Architecture
 
@@ -10,6 +10,14 @@ The application is organized around small responsibilities:
 - `src/routes`: route definitions and route paths. Route pages are lazy-loaded.
 - `src/services`: API, browser storage, and file processing services.
 - `src/types`: shared domain and API types.
+
+## Application patterns
+
+- Use React Hook Form with a Zod schema for form state and validation.
+- Use TanStack Query for API queries and mutations. The shared query client uses a five-minute cache, avoids refetching on window focus, and does not retry mutations automatically.
+- Keep authentication session state in `AuthContext`; keep remote request state in TanStack Query.
+- Preserve request cancellation with `AbortSignal` when a form unmounts or a newer submission replaces an older one.
+- Convert server failures through `getApiErrorMessage` and preserve HTTP status in `ApiError` for future status-specific UI.
 
 For a new feature, create a focused folder under `src/features/<feature-name>` when it owns multiple components, services, or routes. Keep truly reusable UI in `src/components` and shared domain types in `src/types`.
 
@@ -31,6 +39,7 @@ npm run dev
 ```bash
 npm run build
 npm run lint
+npm test
 ```
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

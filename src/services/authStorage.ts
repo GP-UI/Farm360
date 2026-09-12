@@ -5,7 +5,11 @@ const PROFILE_STORAGE_KEY = 'shreeja_farm_profile'
 type StoredProfile = UserProfile
 
 export function saveProfile(profile: UserProfile) {
-  localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile))
+  try {
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile))
+  } catch {
+    return
+  }
 }
 
 function isStoredProfile(value: unknown): value is StoredProfile {
@@ -17,10 +21,10 @@ function isStoredProfile(value: unknown): value is StoredProfile {
 }
 
 export function getStoredProfile(): UserProfile | null {
-  const storedProfile = localStorage.getItem(PROFILE_STORAGE_KEY)
-  if (!storedProfile) return null
-
   try {
+    const storedProfile = localStorage.getItem(PROFILE_STORAGE_KEY)
+    if (!storedProfile) return null
+
     const profile: unknown = JSON.parse(storedProfile)
     if (!isStoredProfile(profile)) {
       localStorage.removeItem(PROFILE_STORAGE_KEY)
@@ -34,5 +38,9 @@ export function getStoredProfile(): UserProfile | null {
 }
 
 export function clearStoredProfile() {
-  localStorage.removeItem(PROFILE_STORAGE_KEY)
+  try {
+    localStorage.removeItem(PROFILE_STORAGE_KEY)
+  } catch {
+    return
+  }
 }

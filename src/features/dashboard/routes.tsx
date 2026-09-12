@@ -1,11 +1,11 @@
 import { lazy, type ReactElement } from 'react'
 import { Navigate, Route } from 'react-router-dom'
-import ProfileOverview from '../profile/components/ProfileOverview'
-import OrdersPage from './pages/OrdersPage'
-import SettingsPage from './pages/SettingsPage'
 import type { UserProfile } from '../profile/types'
 
 const UserDashboard = lazy(() => import('./components/UserDashboard'))
+const ProfileOverview = lazy(() => import('../profile/components/ProfileOverview'))
+const OrdersPage = lazy(() => import('./pages/OrdersPage'))
+const SettingsPage = lazy(() => import('./pages/SettingsPage'))
 
 type DashboardRoutesProps = {
   profile: UserProfile | null
